@@ -1,36 +1,55 @@
-import {
-  Component,
-  inject,
-  signal,
-  ChangeDetectionStrategy,
-} from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
+import { Router } from '@angular/router';
 import { HomeService } from '../home.service';
-import { AuthService } from '../auth.service';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
+import { Launch } from '../home';
+import { LaunchService } from '../launch.service';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 @Component({
   selector: 'app-home',
-  imports: [MatCardModule, MatButtonModule],
+  imports: [NgxSkeletonLoaderModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent {
-  authService = inject(AuthService);
   homeService = inject(HomeService);
+  launchService = inject(LaunchService);
+  router = inject(Router);
 
-  missionData = signal('');
+  latestLaunches: Launch | undefined;
+  upcomingLaunches: Launch[] | undefined;
+  pastLaunches: Launch[] | undefined;
 
-  ngOnInit(): void {
+  isLoading = false;
+
+  defaultImage = '/spacex-launch-default.webp';
+
+  selectedType = signal('all');
+
+  ngOnInit() {
+    this.isLoading = true;
     this.homeService.getMissionsData().subscribe({
       next: (data) => {
-        this.missionData.set(data.name);
-        console.log('data', data);
+        this.latestLaunches = data.latest;
+        this.upcomingLaunches = data.upcoming;
+        this.pastLaunches = data.past;
+        this.isLoading = false;
       },
       error: (error) => {
         console.error(error);
       },
     });
   }
+
+  selectType(type: string) {
+    this.selectedType.set(type);
+  }
+
+  viewLaunch(launch: Launch) {
+    this.launchService.setLaunchData(launch);
+    this.router.navigate(['/launch', launch.id]);
+  }
+
+  //   array for skeleton loader
+  repeatArray = Array(6).fill(0);
 }

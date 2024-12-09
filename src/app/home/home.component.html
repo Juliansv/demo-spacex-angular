@@ -1,29 +1,143 @@
-<div class="home-container">
-  <p>{{ missionData() }}</p>
-  <!-- <button (click)="onClick()">is logged in</button> -->
-  <div class="latest-launch-container">
-    <mat-card class="example-card" appearance="outlined">
-      <mat-card-header>
-        <div mat-card-avatar class="example-header-image"></div>
-        <mat-card-title>Shiba Inu</mat-card-title>
-        <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-      </mat-card-header>
+<div class="button-container">
+  <button class="view-button" (click)="selectType('all')">All</button>
+  <button class="view-button" (click)="selectType('latest')">Latest</button>
+  <button class="view-button" (click)="selectType('upcoming')">Upcoming</button>
+  <button class="view-button" (click)="selectType('past')">Past</button>
+</div>
+
+@if (selectedType() === "all" || selectedType() === "latest") {
+<div class="launches-container">
+  <h2>Latest</h2>
+  @if (isLoading) {
+  <div class="launch-grid-latest">
+    <div class="launch-card-latest">
+      <ngx-skeleton-loader
+        [count]="1"
+        [appearance]="'custom-content'"
+        [animation]="true"
+        [theme]="{ height: '200px', width: '100%' }"
+      ></ngx-skeleton-loader>
+      <div class="launch-details">
+        <ngx-skeleton-loader
+          [count]="1"
+          [appearance]="'line'"
+          [animation]="true"
+          [theme]="{ height: '20px', width: '100%' }"
+        ></ngx-skeleton-loader>
+        <ngx-skeleton-loader
+          [count]="1"
+          [appearance]="'line'"
+          [animation]="true"
+          [theme]="{ height: '20px', width: '100%' }"
+        ></ngx-skeleton-loader>
+        <ngx-skeleton-loader
+          [count]="1"
+          [appearance]="'line'"
+          [animation]="true"
+          [theme]="{ height: '20px', width: '100%' }"
+        ></ngx-skeleton-loader>
+      </div>
+    </div>
+  </div>
+  } @if (latestLaunches) {
+  <div class="launch-grid-latest">
+    <div class="launch-card-latest">
       <img
-        mat-card-image
-        src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-        alt="Photo of a Shiba Inu"
+        [src]="
+          latestLaunches.links.patch.large || latestLaunches.links.patch.small
+        "
+        [alt]="latestLaunches.name"
+        [height]="200"
+        loading="lazy"
+        class="launch-image"
       />
-      <mat-card-content>
-        <p>
-          The Shiba Inu is the smallest of the six original and distinct spitz
-          breeds of dog from Japan. A small, agile dog that copes very well with
-          mountainous terrain, the Shiba Inu was originally bred for hunting.
-        </p>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-button>LIKE</button>
-        <button mat-button>SHARE</button>
-      </mat-card-actions>
-    </mat-card>
+      <div class="launch-details">
+        <h3>{{ latestLaunches.name + " " + "Mission" }}</h3>
+        <p class="launch-date">{{ latestLaunches.date_utc || "" }}</p>
+        <button (click)="viewLaunch(latestLaunches)" class="view-button">
+          More Info
+        </button>
+      </div>
+    </div>
+  </div>
+  }
+</div>
+} @if (selectedType() === "all" || selectedType() === "upcoming") {
+<div class="launches-container">
+  <h2>Upcoming</h2>
+
+  <div class="launch-grid">
+    @if (isLoading) { @for (e of repeatArray; track $index) {
+    <div class="launch-card">
+      <ngx-skeleton-loader
+        [count]="1"
+        [appearance]="'custom-content'"
+        [animation]="true"
+        [theme]="{ height: '200px', width: '100%' }"
+      ></ngx-skeleton-loader>
+      <div class="launch-details">
+        <ngx-skeleton-loader
+          [count]="1"
+          [appearance]="'line'"
+          [animation]="true"
+          [theme]="{ height: '20px', width: '100%' }"
+        ></ngx-skeleton-loader>
+        <ngx-skeleton-loader
+          [count]="1"
+          [appearance]="'line'"
+          [animation]="true"
+          [theme]="{ height: '20px', width: '100%' }"
+        ></ngx-skeleton-loader>
+        <ngx-skeleton-loader
+          [count]="1"
+          [appearance]="'line'"
+          [animation]="true"
+          [theme]="{ height: '20px', width: '100%' }"
+        ></ngx-skeleton-loader>
+      </div>
+    </div>
+    } } @for (launch of upcomingLaunches; track $index) {
+    <div class="launch-card">
+      <img
+        [src]="launch.links.patch.large || defaultImage"
+        [alt]="launch.name"
+        [height]="200"
+        loading="lazy"
+        class="launch-image"
+      />
+      <div class="launch-details">
+        <h3>{{ launch.name + " " + "Mission" }}</h3>
+        <p class="launch-date">{{ launch.date_utc || "" }}</p>
+        <button (click)="viewLaunch(launch)" class="view-button">
+          More Info
+        </button>
+      </div>
+    </div>
+    }
   </div>
 </div>
+} @if (selectedType() === "all" || selectedType() === "past") {
+<div class="launches-container">
+  <h2>Past</h2>
+  <div class="launch-grid">
+    @for (launch of pastLaunches; track $index) {
+    <div class="launch-card">
+      <img
+        [src]="launch.links.patch.large || defaultImage"
+        [alt]="launch.name"
+        [height]="200"
+        loading="lazy"
+        class="launch-image"
+      />
+      <div class="launch-details">
+        <h3>{{ launch.name + " " + "Mission" }}</h3>
+        <p class="launch-date">{{ launch.date_utc || "" }}</p>
+        <button (click)="viewLaunch(launch)" class="view-button">
+          More Info
+        </button>
+      </div>
+    </div>
+    }
+  </div>
+</div>
+}
