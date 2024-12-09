@@ -1,0 +1,114 @@
+.launch-details-container {
+  font-family: Arial, sans-serif;
+  max-width: 1200px;
+  margin: 2rem;
+  padding: 20px;
+  background-color: #caced2;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.launch-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.mission-patch {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+
+.launch-name {
+  font-size: 2.5rem;
+  color: #333;
+  margin: 0;
+  flex: 1;
+  min-width: 200px;
+}
+
+.launch-info {
+  background-color: #e2e2e2;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.launch-date {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.launch-description h2 {
+  font-size: 1.8rem;
+  color: #444;
+  margin-bottom: 15px;
+}
+
+.launch-description p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #333;
+}
+
+.back-home-link {
+  margin: 2rem;
+}
+
+.back-home-link a {
+  text-decoration: none;
+  color: white;
+  font-size: 1.2rem;
+}
+
+@media (max-width: 768px) {
+  .launch-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .mission-patch {
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+
+  .launch-name {
+    font-size: 2rem;
+  }
+
+  .launch-description h2 {
+    font-size: 1.5rem;
+  }
+
+  .launch-description p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .launch-details-container {
+    padding: 15px;
+  }
+
+  .mission-patch {
+    width: 100px;
+    height: 100px;
+  }
+
+  .launch-name {
+    font-size: 1.8rem;
+  }
+
+  .launch-date {
+    font-size: 1rem;
+  }
+
+  .launch-description h2 {
+    font-size: 1.3rem;
+  }
+}

@@ -1,0 +1,26 @@
+<div class="back-home-link">
+  <a href="/home">back to home</a>
+</div>
+<div class="launch-details-container">
+  <div class="launch-header">
+    <img
+      [src]="launch.links.patch.large || defaultImage"
+      alt="mission patch"
+      class="mission-patch"
+    />
+    <h1 class="launch-name">{{ launch.name + " " + "Mission" }}</h1>
+  </div>
+
+  <div class="launch-info">
+    <p class="launch-date">Launch Date: {{ launch.date_utc }}</p>
+
+    <div class="launch-description">
+      <h2>Mission Details</h2>
+      @if (launch.details === null) {
+      <p>{{ defaultDetail }}</p>
+      } @else {
+      <p>{{ launch.details }}</p>
+      }
+    </div>
+  </div>
+</div>
