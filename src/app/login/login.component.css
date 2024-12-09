@@ -1,0 +1,42 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 90svh;
+}
+
+.form-card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  min-height: 80%;
+  gap: 1rem;
+}
+
+.card-title {
+  color: black;
+}
+
+.form-content {
+  width: 25rem;
+  height: 30rem;
+}
+
+button {
+  width: 50%;
+  height: 3rem;
+}
+
+mat-form-field {
+  width: 80%;
+}
