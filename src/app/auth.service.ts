@@ -42,7 +42,7 @@ export class AuthService {
     localStorage.removeItem('userData');
   }
 
-  isLoggedIn(): Observable<boolean> {
-    return this.http.get<boolean>('http://localhost:8000/loggedIn');
+  isLoggedIn(): boolean {
+    return localStorage.getItem('id_token') !== null;
   }
 }
