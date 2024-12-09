@@ -1,0 +1,10 @@
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 40px;
+}
+
+.logout-button {
+  background-color: red !important;
+  color: white !important;
+}
